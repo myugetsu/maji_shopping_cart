@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Checkout</h2>
+    <form method="post" class="row g-3 mb-4">
+        {{ form.hidden_tag() }}
+        <div class="col-md-6">
+            {{ form.phone_number.label(class="form-label") }}
+            {{ form.phone_number(class="form-control") }}
+        </div>
+        <div class="col-md-6">
+            {{ form.card_number.label(class="form-label") }}
+            {{ form.card_number(class="form-control") }}
+        </div>
+        <div class="col-md-6">
+            {{ form.cvv.label(class="form-label") }}
+            {{ form.cvv(class="form-control") }}
+        </div>
+        <div class="col-md-12">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}

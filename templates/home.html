@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to Our Store</h1>
+
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-4">
+            {{ form.search(class="form-control", placeholder="Search products...") }}
+        </div>
+        <div class="col-md-3">
+            {{ form.category(class="form-select") }}
+        </div>
+        <div class="col-md-3">
+            {{ form.sort_by(class="form-select") }}
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+    {% if products %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product in products %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text fw-bold">${{ "%.2f"|format(product.price) }}</p>
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('add_to_cart', product_id=product.id) }}"
+                            class="btn btn-primary">Add to Cart</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No products found.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Add to Cart</h2>
+    <form method="post" class="row g-3 mb-4">
+        {{ form.hidden_tag() }}
+        {{ form.quantity.label }}
+        {{ form.quantity(class_='form-control', required=True) }}
+        {{ form.submit(class_='btn btn-primary') }}
+    </form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Admin Dashboard</h1>
+    <a href="{{ url_for('add_product') }}" class="btn">Add Product</a>
+    <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+    <h2>Product List</h2>
+    {% if products %}
+        <table class="product-list">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>${{ "%.2f"|format(product.price) }}</td>
+                <td>{{ product.category }}</td>
+                <td>
+                    <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn">Edit</a>
+                    <form style="display: inline;" method="POST" action="{{ url_for('delete_product', product_id=product.id) }}">
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No products found.</p>
+    {% endif %}
+{% endblock %}
+
